@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
 import "./styles.scss";
 
 import Recipes from "./components/Recipes";
@@ -24,7 +24,7 @@ const App = () => {
     getRecipes();
   }, [query]);
 
-  const handleSearch = e => {
+  const handleSearch = (e) => {
     e.preventDefault();
     setQuery(search);
     setSearch("");
@@ -38,7 +38,7 @@ const App = () => {
           <input
             type="text"
             value={search}
-            onChange={e => {
+            onChange={(e) => {
               setSearch(e.target.value);
             }}
           />
@@ -47,7 +47,7 @@ const App = () => {
       </form>
       <hr />
       <div className="recipes">
-        {recipes.map(recipe => (
+        {recipes.map((recipe) => (
           <Recipes
             key={Math.random(Date.now())}
             label={recipe.recipe.label}
@@ -60,5 +60,6 @@ const App = () => {
   );
 };
 
-const rootElement = document.getElementById("root");
-ReactDOM.render(<App />, rootElement);
+const container = document.getElementById("root");
+const root = createRoot(container);
+root.render(<App />, container);
